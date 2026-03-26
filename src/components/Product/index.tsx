@@ -1,27 +1,19 @@
 // Cada Produto se equivale a um Card
 import Tag from '../Tag'
+import Button from '../Button'
 
-import { Card, Titulo, Descricao, Infos } from './styles'
+import { Card, Descricao, Infos, Titulo } from './styles'
 
 type Props = {
-  title: string
-  category: string
-  system: string
+  nomePrato: string
   description: string
-  infos: string[]
+  infos: string[] //tags
   image: string
 }
 
-const Product = ({
-  title,
-  category,
-  system,
-  description,
-  infos,
-  image
-}: Props) => (
+const Product = ({ description, infos, image, nomePrato }: Props) => (
   <Card>
-    <img src={image} alt={title} />
+    <img src={image} alt={nomePrato} />
     <Infos>
       {infos.map((info) => (
         /*
@@ -38,10 +30,11 @@ const Product = ({
         <Tag key={info}>{info}</Tag>
       ))}
     </Infos>
-    <Titulo>{title}</Titulo>
-    <Tag>{category}</Tag>
-    <Tag>{system}</Tag>
+    <Titulo>{nomePrato}</Titulo>
     <Descricao>{description}</Descricao>
+    <Button type="link" to="/perfil">
+      Saiba Mais
+    </Button>
   </Card>
 )
 

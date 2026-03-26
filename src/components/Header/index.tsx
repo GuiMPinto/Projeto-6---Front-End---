@@ -1,35 +1,22 @@
 // Ferramenta reponsável por fazer o link para as páginas.
 import { Link } from 'react-router-dom'
 
-import { HeaderBar, Links, LinkItem, LinkCart } from './styles'
+import { HeaderBar } from './styles'
 
-import logo from '../../assets/images/logo.svg'
-import carrinho from '../../assets/images/carrinho.svg'
+// imagens
+import logo from '../../assets/images/efoodLogo.png'
+import fundoHeader from '../../assets/images/fundoHeader.png'
 
 const Header = () => (
-  <HeaderBar>
-    <div>
+  <HeaderBar style={{ backgroundImage: `url(${fundoHeader})` }}>
+    <div className="container">
       <Link to="/">
-        <img src={logo} alt="EPLAY" />
+        <img src={logo} alt="EFOOD" />
       </Link>
-      <nav>
-        <Links>
-          <LinkItem>
-            <Link to="/categories">Categorias</Link>
-          </LinkItem>
-          <LinkItem>
-            <a href="#">Novidades</a>
-          </LinkItem>
-          <LinkItem>
-            <a href="#">Promoções</a>
-          </LinkItem>
-        </Links>
-      </nav>
+      <h1>
+        Viva experiências gastronômicas <br /> no conforto da sua casa
+      </h1>
     </div>
-    <LinkCart href="#">
-      0 - produto(s)
-      <img src={carrinho} alt="Carrinho" />
-    </LinkCart>
   </HeaderBar>
 )
 

@@ -3,24 +3,18 @@ import styled from 'styled-components'
 import { cores } from '../../styles'
 
 import { Props } from './index'
-import { Card } from '../Product/styles'
 
 export const Container = styled.section<Omit<Props, 'title' | 'games'>>`
   padding: 32px 0;
-  background-color: ${(props) =>
-    props.background === 'black' ? cores.preta : cores.cinza};
-
-  ${Card} {
-    background-color: ${(props) =>
-      props.background === 'black' ? cores.cinza : cores.preta};
-  }
+  background-color: ${cores.branca};
 `
-
 export const List = styled.ul`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  column-gap: 24px;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 80px;
+  row-gap: 40px;
   margin-top: 40px;
+  margin-bottom: 120px;
 `
 
 export const Title = styled.h2`

@@ -5,7 +5,8 @@ export const cores = {
   preta: '#111',
   cinza: '#333',
   cinzaClaro: '#a3a3a3',
-  verde: '#10AC84'
+  verde: '#10AC84',
+  rosa: '#E66767'
 }
 /*
   margin: 0 auto; // Altura vertical igual a Zero
@@ -21,9 +22,8 @@ export const GlobalCss = createGlobalStyle`
   }
 
   body {
-    background-color: ${cores.preta};
-    color: ${cores.branca};
-    padding-top: 40px;
+    background-color: ${cores.branca};
+    color: ${cores.rosa};
   }
 
   .container {

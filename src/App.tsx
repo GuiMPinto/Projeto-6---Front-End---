@@ -44,10 +44,10 @@ function App() {
     <>
       <BrowserRouter>
         <GlobalCss />
+        <Header />
         <div className="container">
-          <Header />
+          <Rotas />
         </div>
-        <Rotas />
         <Footer />
       </BrowserRouter>
     </>
