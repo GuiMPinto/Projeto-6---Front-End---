@@ -27,10 +27,21 @@ export const Imagem = styled.div`
     padding-top: 340px;
     display: flex;
     justify-content: space-between;
+    color: ${cores.branca};
+    font-size: 32px;
+
+    h3 {
+      color: ${cores.branca};
+      font-size: 32px;
+      font-weight: normal;
+      position: absolute;
+      top: 24px;
+    }
   }
 `
 export const Titulo = styled.h2`
-  color : ${cores.branca}
-  font-size: 36px;
-  max-width: 450px;
+  color: ${cores.branca}
+  font-size: 4px;
+  position: absolute;
+  bottom: 48px;
 `
