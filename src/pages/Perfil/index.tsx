@@ -1,5 +1,6 @@
 import ProductsListPerfil from '../../components/ProductListPerfil'
 import PratosPerfil from '../../models/pratosPerfil'
+import Banner from '../../components/BannerPerfil'
 
 // Imagens dos produtos
 import pizza from '../../assets/images/pizza.png'
@@ -55,6 +56,7 @@ const pratosRestaurante: PratosPerfil[] = [
 const Perfil = () => (
   <>
     <HeaderPerfil />
+    <Banner />
     <ProductsListPerfil pratosPerfil={pratosRestaurante} />
   </>
 )

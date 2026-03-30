@@ -4,6 +4,11 @@ import { cores } from '../../styles'
 
 import { Props } from './index'
 
+/*
+  align-items: center;  // Alinha elementos na vertical
+  justify-content: center; // Alinha elementos na horizontal
+*/
+
 export const Container = styled.section<Omit<Props, 'title' | 'games'>>`
   padding: 32px 0;
   background-color: ${cores.branca};
