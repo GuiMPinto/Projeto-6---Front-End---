@@ -1,28 +1,26 @@
 import styled from 'styled-components'
-
+import { cores } from '../../styles'
 /*
   align-items: center;  // Alinha elementos na vertical
   justify-content: center; // Alinha elementos na horizontal
 */
 
 export const HeaderBar = styled.header`
+  height: 184px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
   .container {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     img {
-      background-repeat: no-repeat;
-      background-size: cover;
+      display: inline;
     }
-
     h1 {
-      padding-top: 160px;
-      padding-bottom: 40px;
-      text-align: center;
+      font-size: 18px;
+      color: ${cores.rosa};
+      display: inline;
     }
   }
-`
-export const IMAGEM = styled.img`
-  margin-top: 40px;
 `

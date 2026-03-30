@@ -1,29 +1,34 @@
 import styled from 'styled-components'
-import { cores } from '../../styles'
 
-export const Container = styled.footer`
-  background-color: ${cores.cinza};
-  padding: 32px 0;
-  font-size: 14px;
+/*
+  align-items: center;  // Alinha elementos na vertical
+  justify-content: center; // Alinha elementos na horizontal
+*/
+
+export const HeaderBar = styled.header`
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    img {
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    h1 {
+      font-size: 10px;
+      padding-bottom: 40px;
+      text-align: center;
+      font-weight: regular;
+    }
+  }
+`
+export const LOGO = styled.img`
+  margin-top: 40px;
 `
 
-export const SectionTitle = styled.h4`
-  color: ${cores.branca};
-  font-size: 16px;
-  font-weight: bold;
-`
-
-export const Links = styled.ul`
-  display: flex;
-  margin-top: 16px;
-`
-
-export const Link = styled.a`
-  color: ${cores.cinzaClaro};
-  text-decoration: none;
-  margin-right: 8px;
-`
-
-export const FooterSection = styled.div`
-  margin-bottom: 64px;
+export const R_SOCIAIS = styled.img`
+  margin-top: 32px;
+  margin-bottom: 80px;
 `

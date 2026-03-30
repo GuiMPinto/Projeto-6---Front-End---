@@ -2,16 +2,19 @@
 import Tag from '../Tag'
 import Button from '../Button'
 
-import { Card, Descricao, Infos, Titulo } from './styles'
+import estrela from '../../assets/images/star-solid-full.svg'
+
+import { Card, Descricao, Infos, Titulo, Etiqueta } from './styles'
 
 type Props = {
   nomePrato: string
   description: string
   infos: string[] //tags
   image: string
+  nota: string
 }
 
-const Product = ({ description, infos, image, nomePrato }: Props) => (
+const Product = ({ description, infos, image, nomePrato, nota }: Props) => (
   <Card>
     <img src={image} alt={nomePrato} />
     <Infos>
@@ -26,11 +29,20 @@ const Product = ({ description, infos, image, nomePrato }: Props) => (
           O uso da prop key acontece normalmente quando estamos iterando
           sobre um array (neste caso, infos é um array de strings), e precisamos
           renderizar múltiplos componentes a partir dele.
+
+          <FontAwesomeIcon icon={byPrefixAndName.fas['star']} style={{color: "rgb(255, 212, 59)",}} />
+          <i class="fa-solid fa-star" style="color: rgb(255, 212, 59);"></i>
         */
         <Tag key={info}>{info}</Tag>
       ))}
     </Infos>
-    <Titulo>{nomePrato}</Titulo>
+    <Etiqueta>
+      <Titulo>{nomePrato}</Titulo>
+      <div>
+        <Titulo>{nota}</Titulo>
+        <img src={estrela} />
+      </div>
+    </Etiqueta>
     <Descricao>{description}</Descricao>
     <Button type="link" to="/perfil">
       Saiba Mais

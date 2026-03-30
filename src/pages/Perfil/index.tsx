@@ -1,65 +1,61 @@
-import ProductsList from '../../components/ProductList'
-import Game from '../../models/games'
+import ProductsListPerfil from '../../components/ProductListPerfil'
+import PratosPerfil from '../../models/pratosPerfil'
 
 // Imagens dos produtos
-import resident from '../../assets/images/resident.png'
+import pizza from '../../assets/images/pizza.png'
+import HeaderPerfil from '../../components/HeaderPerfil'
 
 // Promoções
 
-const pratosRestaurante: Game[] = [
+const pratosRestaurante: PratosPerfil[] = [
   {
     id: 1,
     description:
-      'Resident Evil 4, conhecido no Japão como Biohazard 4, é um jogo eletrônico de survival horror de tiro em terceira pessoa desenvolvido e publicado pela Capcom.',
-    image: resident,
-    title: 'Resident Evil 4',
-    infos: ['10%', 'R$ 250,00']
+      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
+    image: pizza,
+    title: 'Pizza Marguerita'
   },
   {
     id: 2,
     description:
-      'Resident Evil 4, conhecido no Japão como Biohazard 4, é um jogo eletrônico de survival horror de tiro em terceira pessoa desenvolvido e publicado pela Capcom.',
-    image: resident,
-    title: 'Resident Evil 4',
-    infos: ['5%', 'R$ 290,00']
+      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
+    image: pizza,
+    title: 'Pizza Marguerita'
   },
   {
     id: 3,
     description:
-      'Resident Evil 4, conhecido no Japão como Biohazard 4, é um jogo eletrônico de survival horror de tiro em terceira pessoa desenvolvido e publicado pela Capcom.',
-    image: resident,
-    title: 'Resident Evil 4',
-    infos: ['10%', 'R$ 220,00']
+      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
+    image: pizza,
+    title: 'Pizza Marguerita'
   },
   {
     id: 4,
     description:
-      'Resident Evil 4, conhecido no Japão como Biohazard 4, é um jogo eletrônico de survival horror de tiro em terceira pessoa desenvolvido e publicado pela Capcom.',
-    image: resident,
-    title: 'Resident Evil 4',
-    infos: ['5%', 'R$ 290,00']
+      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
+    image: pizza,
+    title: 'Pizza Marguerita'
   },
   {
     id: 5,
     description:
-      'Resident Evil 4, conhecido no Japão como Biohazard 4, é um jogo eletrônico de survival horror de tiro em terceira pessoa desenvolvido e publicado pela Capcom.',
-    image: resident,
-    title: 'Resident Evil 4',
-    infos: ['10%', 'R$ 220,00']
+      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
+    image: pizza,
+    title: 'Pizza Marguerita'
   },
   {
     id: 6,
     description:
-      'Resident Evil 4, conhecido no Japão como Biohazard 4, é um jogo eletrônico de survival horror de tiro em terceira pessoa desenvolvido e publicado pela Capcom.',
-    image: resident,
-    title: 'Resident Evil 4',
-    infos: ['5%', 'R$ 290,00']
+      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
+    image: pizza,
+    title: 'Pizza Marguerita'
   }
 ]
 
 const Perfil = () => (
   <>
-    <ProductsList games={pratosRestaurante} />
+    <HeaderPerfil />
+    <ProductsListPerfil pratosPerfil={pratosRestaurante} />
   </>
 )
 

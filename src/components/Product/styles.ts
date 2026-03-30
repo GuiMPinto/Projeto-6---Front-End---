@@ -10,23 +10,46 @@ export const Card = styled.div`
 
   ${TagContainer} {
     margin-right: 8px;
+
+  span {
+    height: 24px;
+    img {
+      height: 24px;
+    }
+  }
 `
 
 export const Titulo = styled.h3`
   font-weight: bold;
   font-size: 18px;
-  display: block;
-  margin: 8px 0px 16px 8px;
+  display: inline;
+  margin-left: 8px;
 `
 
 export const Descricao = styled.p`
   font-size: 14px;
   line-height: 22px;
   display: block;
+  margin-top: 16px;
   margin-left: 8px;
 `
 export const Infos = styled.div`
   position: absolute;
   top: 16px;
   right: 16px;
+`
+export const Etiqueta = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  img {
+    height: 24px;
+    margin-left: 8px;
+    margin-right: 8px;
+  }
 `
