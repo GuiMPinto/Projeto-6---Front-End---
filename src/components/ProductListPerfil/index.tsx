@@ -1,9 +1,11 @@
 import ProductPerfil from '../ProductPerfil'
 import { Container, List } from './styles'
-import PratoPerfil from '../../models/pratosPerfil'
+import { Restaurantes } from '../../pages/Home'
+import PratosPerfil from '../../models/pratosPerfil'
 
+// A props do componente
 export type Props = {
-  pratosPerfil: PratoPerfil[]
+  pratosPerfil: PratosPerfil[]
 }
 
 const ProductsList = ({ pratosPerfil }: Props) => (

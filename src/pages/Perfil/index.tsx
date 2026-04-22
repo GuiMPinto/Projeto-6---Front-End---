@@ -1,3 +1,4 @@
+// Componentes
 import ProductsListPerfil from '../../components/ProductListPerfil'
 import PratosPerfil from '../../models/pratosPerfil'
 import Banner from '../../components/BannerPerfil'

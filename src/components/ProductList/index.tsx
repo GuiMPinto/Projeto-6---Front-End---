@@ -1,24 +1,27 @@
+// Componentes
 import Product from '../Product'
+import { Restaurantes } from '../../pages/Home' // Type de dados criado me Home
+
+// CSS
 import { Container, List } from './styles'
-import Game from '../../models/games'
 
 export type Props = {
-  games: Game[]
+  listaRestaurante: Restaurantes[]
 }
 
-const ProductsList = ({ games }: Props) => (
+const ProductsList = ({ listaRestaurante }: Props) => (
   <Container>
     <div className="container">
       <List>
-        {games.map((game) => (
-          // Prodcut <= game.ts
+        {listaRestaurante.map((restaurante) => (
+          // Prodcut <= restaurante.ts
           <Product
-            key={game.id}
-            description={game.description}
-            image={game.image}
-            infos={game.infos}
-            nomePrato={game.title}
-            nota={game.nota}
+            key={restaurante.id}
+            description={restaurante.descricao}
+            image={restaurante.capa}
+            infos={restaurante.tipo}
+            nomePrato={restaurante.titulo}
+            nota={restaurante.avaliacao}
           />
         ))}
       </List>
