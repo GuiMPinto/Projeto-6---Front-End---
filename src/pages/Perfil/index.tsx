@@ -11,10 +11,24 @@ import { cardapio } from '../Home'
 // Imagens dos produtos
 import HeaderPerfil from '../../components/HeaderPerfil'
 
+//Recebe o cardapio de Restaurante
+export type Pratos = {
+  id: number
+  nome: string
+  descricao: string
+  porcao: string
+  foto: string
+  preco: number
+}
+// // A props do componente
+// export  Props = {
+//   pratosDados: Prato[]
+// }
+
 const Perfil = () => {
   const { id } = useParams()
   //useState
-  const [menu, setMenu] = useState<cardapio[]>()
+  const [menu, setMenu] = useState<cardapio[]>([])
 
   //lendo a api
   useEffect(() => {

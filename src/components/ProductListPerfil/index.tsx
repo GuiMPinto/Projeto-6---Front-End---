@@ -1,19 +1,12 @@
 import ProductPerfil from '../ProductPerfil'
 import { Container, List } from './styles'
 import { cardapio } from '../../pages/Home'
-
+import { Pratos } from '../../pages/Perfil'
 //Recebe o cardapio de Restaurante
-export interface Prato {
-  id: number
-  nome: string
-  descricao: string
-  porcao: string
-  foto: string
-  preco: number
-}
+
 // A props do componente
 export type Props = {
-  pratos: cardapio[]
+  pratos: Pratos[] // tente colocar cardapio invês de Pratos
 }
 
 const ProductsList = ({ pratos }: Props) => (
