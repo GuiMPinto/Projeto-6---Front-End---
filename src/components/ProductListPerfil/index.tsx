@@ -1,24 +1,36 @@
 import ProductPerfil from '../ProductPerfil'
 import { Container, List } from './styles'
-import { Restaurantes } from '../../pages/Home'
-import PratosPerfil from '../../models/pratosPerfil'
+import { cardapio } from '../../pages/Home'
 
+//Recebe o cardapio de Restaurante
+export interface Prato {
+  id: number
+  nome: string
+  descricao: string
+  porcao: string
+  foto: string
+  preco: number
+}
 // A props do componente
 export type Props = {
-  pratosPerfil: PratosPerfil[]
+  pratos: cardapio[]
 }
 
-const ProductsList = ({ pratosPerfil }: Props) => (
+const ProductsList = ({ pratos }: Props) => (
   <Container>
     <div className="container">
       <List>
-        {pratosPerfil.map((pratosPerfil) => (
+        {pratos.map((pratosPerfil) => (
           // Prodcut <= game.ts
           <ProductPerfil
             key={pratosPerfil.id}
-            description={pratosPerfil.description}
-            image={pratosPerfil.image}
-            nomePrato={pratosPerfil.title}
+            image={pratosPerfil.foto}
+            nomePrato={pratosPerfil.nome}
+            description={
+              pratosPerfil.descricao.length
+                ? pratosPerfil.descricao.slice(0, 150) + '...'
+                : pratosPerfil.descricao
+            }
           />
         ))}
       </List>

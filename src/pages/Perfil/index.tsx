@@ -1,65 +1,39 @@
+//React
+import { useParams } from 'react-router-dom' /* Permite preencher a página
+com os dados da api usando um paramentro como referencia o id em geral */
+import { useState, useEffect } from 'react'
+
 // Componentes
 import ProductsListPerfil from '../../components/ProductListPerfil'
-import PratosPerfil from '../../models/pratosPerfil'
 import Banner from '../../components/BannerPerfil'
+import { cardapio } from '../Home'
 
 // Imagens dos produtos
-import pizza from '../../assets/images/pizza.png'
 import HeaderPerfil from '../../components/HeaderPerfil'
 
-// Promoções
+const Perfil = () => {
+  const { id } = useParams()
+  //useState
+  const [menu, setMenu] = useState<cardapio[]>()
 
-const pratosRestaurante: PratosPerfil[] = [
-  {
-    id: 1,
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    image: pizza,
-    title: 'Pizza Marguerita'
-  },
-  {
-    id: 2,
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    image: pizza,
-    title: 'Pizza Marguerita'
-  },
-  {
-    id: 3,
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    image: pizza,
-    title: 'Pizza Marguerita'
-  },
-  {
-    id: 4,
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    image: pizza,
-    title: 'Pizza Marguerita'
-  },
-  {
-    id: 5,
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    image: pizza,
-    title: 'Pizza Marguerita'
-  },
-  {
-    id: 6,
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    image: pizza,
-    title: 'Pizza Marguerita'
+  //lendo a api
+  useEffect(() => {
+    fetch(`https://api-ebac.vercel.app/api/efood/restaurantes/${id} `)
+      .then((res) => res.json())
+      .then((res) => setMenu(res))
+  })
+
+  if (!menu) {
+    return <h3>Carregando ... </h3>
   }
-]
 
-const Perfil = () => (
-  <>
-    <HeaderPerfil />
-    <Banner />
-    <ProductsListPerfil pratosPerfil={pratosRestaurante} />
-  </>
-)
+  return (
+    <>
+      <HeaderPerfil />
+      <Banner />
+      <ProductsListPerfil pratos={menu} />
+    </>
+  )
+}
 
 export default Perfil

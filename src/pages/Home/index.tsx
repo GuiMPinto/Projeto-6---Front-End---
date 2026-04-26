@@ -17,23 +17,38 @@ export interface cardapio {
 }
 // Tipo para ler os dados da API. Os campos tem
 // que ser os da API externa
+
 export type Restaurantes = {
   id: number
   titulo: string
-  destacado: boolean
-  tipo: string[]
-  avaliacao: string
   descricao: string
+  tipo: string
   capa: string
+  avaliacao: string
   cardapio: string[]
 }
+
+// export type Restaurantes = {
+// id: number
+// titulo: string
+// descricao: string
+// tipo: string
+// capa: string
+// avaliacao: number
+// cardapio: {
+//   id: number
+//   nome: string
+//   descricao: string
+//   foto: string
+//   preco: number
+//   porcao: string
+// }[]
 
 const Home = () => {
   // Estado(State), que recebe a API
   const [restaurante, setRestaurante] = useState<Restaurantes[]>([])
 
   useEffect(() => {
-    // Promoções
     fetch('https://api-ebac.vercel.app/api/efood/restaurantes')
       .then((res) => res.json())
       .then((res) => setRestaurante(res))
