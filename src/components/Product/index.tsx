@@ -2,6 +2,10 @@
 import Tag from '../Tag'
 import Button from '../Button'
 
+// React
+import { Link } from 'react-router'
+
+// Imagens
 import estrela from '../../assets/images/star-solid-full.svg'
 
 import { Card, CardImagem, Descricao, Infos, Titulo, Etiqueta } from './styles'
@@ -13,6 +17,7 @@ type Props = {
   infos: string
   image: string
   nota: string
+  link?: string
 }
 
 const Product = ({ id, description, infos, image, nomePrato, nota }: Props) => (

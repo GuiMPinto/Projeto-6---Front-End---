@@ -30,6 +30,7 @@
   fluidez para o seu projeto.
 */
 import { BrowserRouter } from 'react-router-dom'
+import { store } from './store'
 
 import { GlobalCss } from './styles'
 
@@ -38,15 +39,18 @@ import Header from './components/Header'
 import Footer from './components/Rodape'
 
 import Rotas from './routes'
+import { Provider } from 'react-redux'
 
 function App() {
   return (
     <>
-      <BrowserRouter>
-        <GlobalCss />
-        <Rotas />
-        <Footer />
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <GlobalCss />
+          <Rotas />
+          <Footer />
+        </BrowserRouter>
+      </Provider>
     </>
   )
 }

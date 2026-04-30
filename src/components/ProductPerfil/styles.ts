@@ -12,17 +12,18 @@ export const Card = styled.div`
   color: ${cores.branca};
   width: 320px;
   padding: 8px;
+  position: relative;
 
-  ${ButtonLink} = {
+  img {
     width: 100%;
-    color: ${cores.rosa};
-    background-color: ${cores.branca};
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    width: 320px;
-    margin: 0 auto;
+    display: block;
+    height: 217px;
+    object-fit: cover;
   }
+`
+export const CardContainer = styled.div`
+  padding: 8px;
+  border-top: none;
 `
 
 export const Titulo = styled.h3`
@@ -38,4 +39,15 @@ export const Descricao = styled.p`
   display: block;
   margin-top: 16px;
   margin-left: 8px;
+`
+
+export const BotaoAdicionar = styled.button`
+  background-color: ${cores.branca};
+  color: ${cores.rosa};
+  padding: 4px 0;
+  border: none;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  width: 100%;
 `

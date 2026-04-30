@@ -11,14 +11,25 @@ import { cardapio } from '../Home'
 // Imagens dos produtos
 import HeaderPerfil from '../../components/HeaderPerfil'
 
+//store
+import { useGetRestaurantByIdQuery } from '../../store/api'
+
 //Recebe o cardapio de Restaurante
-export type Pratos = {
+export type tipoRestaurante = {
   id: number
-  nome: string
+  titulo: string
   descricao: string
-  porcao: string
-  foto: string
-  preco: number
+  tipo: string
+  capa: string
+  avaliacao: number
+  cardapio: {
+    id: number
+    nome: string
+    descricao: string
+    foto: string
+    preco: number
+    porcao: string
+  }[]
 }
 // // A props do componente
 // export  Props = {
@@ -28,14 +39,16 @@ export type Pratos = {
 const Perfil = () => {
   const { id } = useParams()
   //useState
-  const [menu, setMenu] = useState<cardapio[]>([])
+  //const [menu, setMenu] = useState<cardapio[]>([])
+
+  const { data: menu } = useGetRestaurantByIdQuery(id || '')
 
   //lendo a api
-  useEffect(() => {
-    fetch(`https://api-ebac.vercel.app/api/efood/restaurantes/${id} `)
-      .then((res) => res.json())
-      .then((res) => setMenu(res))
-  })
+  // useEffect(() => {
+  //   fetch(`https://api-ebac.vercel.app/api/efood/restaurantes/${id} `)
+  //     .then((res) => res.json())
+  //     .then((res) => setMenu(res))
+  // })
 
   if (!menu) {
     return <h3>Carregando ... </h3>
@@ -45,7 +58,7 @@ const Perfil = () => {
     <>
       <HeaderPerfil />
       <Banner />
-      <ProductsListPerfil pratos={menu} />
+      <ProductsListPerfil Cardapio={menu.cardapio} />
     </>
   )
 }
