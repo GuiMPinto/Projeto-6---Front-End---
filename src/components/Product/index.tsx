@@ -2,9 +2,6 @@
 import Tag from '../Tag'
 import Button from '../Button'
 
-// React
-import { Link } from 'react-router'
-
 // Imagens
 import estrela from '../../assets/images/star-solid-full.svg'
 

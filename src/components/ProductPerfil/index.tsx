@@ -1,22 +1,26 @@
 // Cada Produto se equivale a um Card
-import Button from '../Button'
-import { Card, Descricao, CardContainer, Titulo } from './styles'
+import {
+  Card,
+  Descricao,
+  CardContainer,
+  Titulo,
+  BotaoAdicionar
+} from './styles'
 
 type Props = {
   nomePrato: string
   description: string
   image: string
+  onOpen: () => void
 }
 
-const ProductPerfil = ({ description, image, nomePrato }: Props) => (
+const ProductPerfil = ({ description, image, nomePrato, onOpen }: Props) => (
   <Card>
     <img src={image} alt={nomePrato} />
     <CardContainer>
       <Titulo>{nomePrato}</Titulo>
       <Descricao>{description}</Descricao>
-      <Button type="link" to="/">
-        Adicionar ao Carrinho
-      </Button>
+      <BotaoAdicionar onClick={onOpen}>Saiba Mais</BotaoAdicionar>
     </CardContainer>
   </Card>
 )

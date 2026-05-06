@@ -29,16 +29,18 @@
   múltiplas "páginas" e rotas personalizadas, trazendo mais organização e
   fluidez para o seu projeto.
 */
+// React e Redux
 import { BrowserRouter } from 'react-router-dom'
-import { store } from './store'
+import { store } from './store' // Necessário, na aplicação pois será
+// disparado uma action ao clicar em um botão
 
 import { GlobalCss } from './styles'
 
 // Componentes
-import Header from './components/Header'
 import Footer from './components/Rodape'
-
 import Rotas from './routes'
+
+//React
 import { Provider } from 'react-redux'
 
 function App() {

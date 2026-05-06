@@ -1,12 +1,12 @@
 // Componentes
 import Product from '../Product'
-import { Restaurantes } from '../../pages/Home' // Type de dados criado me Home
+import { Restaurante } from '../../models/restaurante' // Type de dados criado me Home
 
 // CSS
 import { Container, List } from './styles'
 
 export type Props = {
-  listaRestaurante: Restaurantes[]
+  listaRestaurante: Restaurante[]
 }
 
 const ProductsList = ({ listaRestaurante }: Props) => (

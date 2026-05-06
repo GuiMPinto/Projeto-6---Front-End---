@@ -1,54 +1,23 @@
 //React
 import { useParams } from 'react-router-dom' /* Permite preencher a página
-com os dados da api usando um paramentro como referencia o id em geral */
-import { useState, useEffect } from 'react'
+com determinados dados da api usando um paramentro como referencia.
+Geralmente o paramentro 'id' é usado para isso */
 
 // Componentes
 import ProductsListPerfil from '../../components/ProductListPerfil'
 import Banner from '../../components/BannerPerfil'
-import { cardapio } from '../Home'
-
-// Imagens dos produtos
 import HeaderPerfil from '../../components/HeaderPerfil'
 
-//store
-import { useGetRestaurantByIdQuery } from '../../store/api'
-
-//Recebe o cardapio de Restaurante
-export type tipoRestaurante = {
-  id: number
-  titulo: string
-  descricao: string
-  tipo: string
-  capa: string
-  avaliacao: number
-  cardapio: {
-    id: number
-    nome: string
-    descricao: string
-    foto: string
-    preco: number
-    porcao: string
-  }[]
-}
-// // A props do componente
-// export  Props = {
-//   pratosDados: Prato[]
-// }
+// Importa a requisição da api externa usada com o id no final
+import { useGetRestaurantByIdQuery } from '../../api'
 
 const Perfil = () => {
   const { id } = useParams()
-  //useState
-  //const [menu, setMenu] = useState<cardapio[]>([])
 
+  // O menu é o objeto do tipo Restaurante carregado em
+  // src/api/index.tsx.
+  // Carrega os dados apenas com o paramentro id selecionado.
   const { data: menu } = useGetRestaurantByIdQuery(id || '')
-
-  //lendo a api
-  // useEffect(() => {
-  //   fetch(`https://api-ebac.vercel.app/api/efood/restaurantes/${id} `)
-  //     .then((res) => res.json())
-  //     .then((res) => setMenu(res))
-  // })
 
   if (!menu) {
     return <h3>Carregando ... </h3>
@@ -58,7 +27,7 @@ const Perfil = () => {
     <>
       <HeaderPerfil />
       <Banner />
-      <ProductsListPerfil Cardapio={menu.cardapio} />
+      <ProductsListPerfil cardapio={menu.cardapio} />
     </>
   )
 }
