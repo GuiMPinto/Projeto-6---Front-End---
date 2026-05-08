@@ -521,5 +521,3 @@ Resumindo o funcionamento do Modal:
 O ProductListPerfil exibe um Modal quando o botão de ProductPerfil é
 acionado. O modal ira exibir os dados do ProductPerfil no qual o
 botão SAIBA MAIS foi clicado.
-
-
