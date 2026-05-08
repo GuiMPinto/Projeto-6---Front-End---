@@ -19,10 +19,10 @@ export interface Cardapio {
 }
 
 type Props = {
-  cardapio: Cardapio[]
+  menu: Cardapio[]
 }
-const ProductsListPerfil = ({ cardapio }: Props) => {
-  //Estado Inicial do Modal
+const ProductsListPerfil = ({ menu }: Props) => {
+  //Estados React que habilita o Modal
   const [modal, setModal] = useState({
     isVisible: false,
     data: null as Cardapio | null
@@ -32,7 +32,7 @@ const ProductsListPerfil = ({ cardapio }: Props) => {
     <Container>
       <div className="container">
         <List>
-          {cardapio.map((pratosPerfil) => (
+          {menu.map((pratosPerfil) => (
             // Prodcut <= game.ts
             <ProductPerfil
               key={pratosPerfil.id}

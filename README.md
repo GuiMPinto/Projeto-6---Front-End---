@@ -314,7 +314,9 @@ de HOME para o PERFIL, o mesmo que mudar da página HOME para PERFIL.
 src/pages/Pefil/index.tsx
 ---------------------------------------------------------------------------
 //React
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom' /* Permite preencher a página
+com determinados dados da api usando um paramentro como referencia.
+Geralmente o paramentro 'id' é usado para isso */
 
 // Componentes
 import ProductsListPerfil from '../../components/ProductListPerfil'
@@ -326,9 +328,13 @@ import { useGetRestaurantByIdQuery } from '../../api'
 
 const Perfil = () => {
   const { id } = useParams()
-  const { data: menu } = useGetRestaurantByIdQuery(id || '')
 
-  if (!menu) {
+  // O menu é o objeto do tipo Restaurante carregado em
+  // src/api/index.tsx.
+  // Carrega os dados apenas com o paramentro id selecionado.
+  const { data: pratosRestaurante } = useGetRestaurantByIdQuery(id || '')
+
+  if (!pratosRestaurante) {
     return <h3>Carregando ... </h3>
   }
 
@@ -336,7 +342,7 @@ const Perfil = () => {
     <>
       <HeaderPerfil />
       <Banner />
-      <ProductsListPerfil Cardapio={menu.cardapio} />
+      <ProductsListPerfil menu={pratosRestaurante.cardapio} />
     </>
   )
 }
@@ -364,7 +370,7 @@ selecionado corretamente porém a sua aplicação que passa pelo
 componente Perfil não aparecerá. Fica apenas o Header e o Rodapé.
 
 Neste trecho de código:
-<ProductsListPerfil Cardapio={menu.cardapio} />
+<ProductsListPerfil menu={pratosRestaurante.cardapio} />
 é enviado para o componente ProducuctListPerfil apenas a lista de dados
 dos pratos do restaurante que é um item da lista de restaurante nomeado
 na API externa como cardapio.
@@ -374,8 +380,8 @@ restarante. A lista é o componente ProductListPerfil e o componente que
 compõem a lista de pratos é o ProductPerfil.
 
 ------- Modal -------
-Clicando no botão VER MAIS do componente ProductPerfil abrirá um modal
-(um pop up) com algumas informações do array cardapio que comopõem cada
+Clicando no botão SAIBA MAIS do componente ProductPerfil abrirá um modal
+(um pop up) com algumas informações do campo cardapio que comopõem cada
 item da API.
 
 Uma parte dos dados do array carpadio são exibidas no componente
@@ -383,43 +389,137 @@ ProductPerfil e a outro no Modal.
 
 A aplicação do Modal consiste em deixar o Pop UP em uma camanda acima da
 página Perfil mostrando os dados desejado dentro de um painel e entre este
-Pop Up e o Perfil exiber um tela preta com pouca opacidade com o objetivo
-de deixar o Pop em destaque.
+Pop Up e o Perfil é exibido um tela preta com pouca opacidade com o objetivo
+de deixar o Pop em destaque. Esta tela preta é tratada como o overlay no
+documento styles do componente Modal.
 
-Ao clicar no botão de fechar ao fora do Modal aplicação voltar a exibir
+Ao clicar no botão de fechar ou fora do Modal a aplicação voltar a exibir
 o componente de página Perfil.
 
-Foi criado um componente separado para o Modal que é chamado pelo componente
+O Modal foi criado como um componente separado ele é chamado pelo componente
 ProductListPerfil.
 
-O Modal é exibido ao mudar o seu estado para não visivel para vísivel quando
-o botão VER MAIS é clicado.
+src/components/ProductListPerfil
+---------------------------------------------------------------------------
+// componentes
+import ProductPerfil from '../ProductPerfil'
+import Modal from '../Modal'
 
-Dentro do componente ProductListPerfil é adicionado um estado React para
-determinar se o estado do Modal esteja visivel ou não. Inicialmente o estado
-é iniciado como não vísivel e vazio.
+//React
+import { useState } from 'react' // usando na Modal
+
+// Styled Components
+import { Container, List } from './styles'
+
+//Recebe o cardapio de Restaurante
+export interface Cardapio {
+  id: number
+  nome: string
+  descricao: string
+  foto: string
+  preco: number
+  porcao: string
+}
+
+type Props = {
+  menu: Cardapio[]
+}
+const ProductsListPerfil = ({ menu }: Props) => {
+
+  //Estado Inicial de 2 estados da Modal
+  const [modal, setModal] = useState({
+    isVisible: false,
+    data: null as Cardapio | null
+  })
+
+  return (
+    <Container>
+      <div className="container">
+        <List>
+          {menu.map((pratosPerfil) => (
+            // Prodcut <= game.ts
+            <ProductPerfil
+              key={pratosPerfil.id}
+              image={pratosPerfil.foto}
+              nomePrato={pratosPerfil.nome}
+              description={
+                pratosPerfil.descricao.length
+                  ? pratosPerfil.descricao.slice(0, 150) + '...'
+                  : pratosPerfil.descricao
+              }
+              onOpen={() => setModal({ isVisible: true, data: pratosPerfil })}
+            />
+          ))}
+        </List>
+        <Modal
+          product={modal.data}
+          isVisible={modal.isVisible}
+          onClose={() => setModal({ isVisible: false, data: null })}
+        />
+      </div>
+    </Container> // ProductsList
+  )
+}
+
+export default ProductsListPerfil
+---------------------------------------------------------------------------
 
 
+O Modal é exibido ao mudar o seu estado para não visivel e vazio para vísivel
+e com dados para o Modal quando o botão SAIBA MAIS é clicado. Isto é feito via
+CSS usando o styled component. A div que é o container que abrange o componente
+Modal é configurada com o display: none e clicando no botão, é mudado o valor
+do display para flex através da habilitação da classe CSS nomeada como visivel.
+
+A habilitação dessa classe é feita usando o useState do React para mudar alterar
+os dois seguintes estados. Um estado que determina se o Modal vísivel ou não e o
+outro se esta preenchido ou não. Sempre que o Modal estiver visivel ele estará
+com conteúdo e sempre que estiver invisivel ele estara sem conteúdo. Resultando
+apenas em duas combinações entre estes estados.
+
+O estado inicial do Modal é invisivel e não preenchido para mudar para visivel
+e preenchido o componente ProductListPerfil envia a função
+onOpen={() => setModal({ isVisible: true, data: pratosPerfil })}
+para o componente ProductPerfil tem o botão SAIBA MAIS que ao ser clicado
+vai acionar a função onOpen() que habilita o Modal.
 
 
+src/components/ProductPerfil
+-------------------------------------------------------------
+// Cada Produto se equivale a um Card
+import {
+  Card,
+  Descricao,
+  CardContainer,
+  Titulo,
+  BotaoAdicionar
+} from './styles'
+
+type Props = {
+  nomePrato: string
+  description: string
+  image: string
+  onOpen: () => void
+}
+
+const ProductPerfil = ({ description, image, nomePrato, onOpen }: Props) => (
+  <Card>
+    <img src={image} alt={nomePrato} />
+    <CardContainer>
+      <Titulo>{nomePrato}</Titulo>
+      <Descricao>{description}</Descricao>
+      <BotaoAdicionar onClick={onOpen}>Saiba Mais</BotaoAdicionar>
+    </CardContainer>
+  </Card>
+)
+
+export default ProductPerfil
+-------------------------------------------------------------
 
 
-.........................
-É criado mais uma rota para exibir este modal. Então é acresentado o
-''''<Route path="/Modal/:id" element={<Modal />} />'''' em
+Resumindo o funcionamento do Modal:
+O ProductListPerfil exibe um Modal quando o botão de ProductPerfil é
+acionado. O modal ira exibir os dados do ProductPerfil no qual o
+botão SAIBA MAIS foi clicado.
 
-src/routes.tsx
---------------------------------------------------------------
-''''''
-  ........
-''''''
---------------------------------------------------------------
 
-E simultaneamente o documento:
-
-src/components/Modal/index.tsx
---------------------------------------------------------------
-''''''
-  ........
-''''''
---------------------------------------------------------------

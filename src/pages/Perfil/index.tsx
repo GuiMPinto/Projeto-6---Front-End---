@@ -17,9 +17,9 @@ const Perfil = () => {
   // O menu é o objeto do tipo Restaurante carregado em
   // src/api/index.tsx.
   // Carrega os dados apenas com o paramentro id selecionado.
-  const { data: menu } = useGetRestaurantByIdQuery(id || '')
+  const { data: pratosRestaurante } = useGetRestaurantByIdQuery(id || '')
 
-  if (!menu) {
+  if (!pratosRestaurante) {
     return <h3>Carregando ... </h3>
   }
 
@@ -27,7 +27,7 @@ const Perfil = () => {
     <>
       <HeaderPerfil />
       <Banner />
-      <ProductsListPerfil cardapio={menu.cardapio} />
+      <ProductsListPerfil menu={pratosRestaurante.cardapio} />
     </>
   )
 }
