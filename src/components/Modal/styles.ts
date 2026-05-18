@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { breakpoints } from '../../styles'
 import { cores } from '../../styles'
 
 export const PainelModal = styled.div`
@@ -10,6 +11,8 @@ export const PainelModal = styled.div`
   z-index: 100;
   display: none;
 
+
+  }
   &.visivel {
     display: flex;
     align-items: center;
@@ -32,6 +35,10 @@ export const ModalContainer = styled.div`
   width: 90%;
   max-width: 1024px;
 
+  @media (max-width: ${breakpoints.tablet}) {
+    max-width: 90%;
+  }
+
   > img {
     width: 16px !important;
     height: 16px !important;
@@ -49,6 +56,10 @@ export const ModalContent = styled.div`
   padding: 32px;
   display: flex;
   width: 1024px;
+
+  @media (max-width: ${breakpoints.tablet}) {
+    max-width: 100%;
+  }
 
   img {
     width: 280px;

@@ -3,7 +3,7 @@ import ProductsList from '../../components/ProductList'
 import Header from '../../components/Header'
 
 // requisição da API para preencher as lista de restaurantes
-import { useGetRestaurantsQuery } from '../../api'
+import { useGetRestaurantsQuery } from '../../services/api'
 
 const Home = () => {
   //Restaurante é o tipo de dados já preenchido com os dados da API

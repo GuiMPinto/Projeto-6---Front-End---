@@ -21,6 +21,17 @@ export const Imagem = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   font-weight: bold;
+  position: relative;
+
+  &::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    content: '';
+  }
 
   .container {
     position: relative;
@@ -29,6 +40,7 @@ export const Imagem = styled.div`
     justify-content: space-between;
     color: ${cores.branca};
     font-size: 32px;
+    z-index: 1;
 
     h3 {
       color: ${cores.branca};

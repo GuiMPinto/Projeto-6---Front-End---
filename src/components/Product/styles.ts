@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { cores } from '../../styles'
+import { cores, breakpoints } from '../../styles'
 import { TagContainer } from '../Tag/styles'
 import { ButtonLink, ButtonContainer } from '../Button/styles'
 
@@ -52,6 +52,10 @@ export const Descricao = styled.p`
   display: block;
   margin-top: 16px;
   margin-left: 8px;
+
+  @media (max-width: ${breakpoints.tablet}) {
+    margin-right: 8px;
+  }
 `
 export const Infos = styled.div`
   position: absolute;

@@ -1,3 +1,7 @@
+// Redux - actions -
+import { open } from '../../store/reducers/carrinhoCompras'
+import { useDispatch } from 'react-redux'
+
 // Cada Produto se equivale a um Card
 import {
   Card,
@@ -14,15 +18,17 @@ type Props = {
   onOpen: () => void
 }
 
-const ProductPerfil = ({ description, image, nomePrato, onOpen }: Props) => (
-  <Card>
-    <img src={image} alt={nomePrato} />
-    <CardContainer>
-      <Titulo>{nomePrato}</Titulo>
-      <Descricao>{description}</Descricao>
-      <BotaoAdicionar onClick={onOpen}>Saiba Mais</BotaoAdicionar>
-    </CardContainer>
-  </Card>
-)
+const ProductPerfil = ({ description, image, nomePrato, onOpen }: Props) => {
+  return (
+    <Card>
+      <img src={image} alt={nomePrato} />
+      <CardContainer>
+        <Titulo>{nomePrato}</Titulo>
+        <Descricao>{description}</Descricao>
+        <BotaoAdicionar onClick={onOpen}>Saiba Mais</BotaoAdicionar>
+      </CardContainer>
+    </Card>
+  )
+}
 
 export default ProductPerfil

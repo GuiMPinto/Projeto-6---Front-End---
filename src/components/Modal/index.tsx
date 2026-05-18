@@ -1,9 +1,18 @@
+//Imagens
 import closeIcon from '../../assets/images/close.png'
+
+//Componentes
 import { Cardapio } from '../ProductListPerfil'
-//import { Prato } from '../ProductList'
+
+// Utils
 import { formataPreco } from '../../utils/formatacao'
+
+//CSS
 import { ModalContainer, PainelModal, BotaoModal, ModalContent } from './styles'
-//import { add, open } from '../store/reducers/cart'
+
+// Redux - actions -
+import { open, add } from '../../store/reducers/carrinhoCompras'
+import { useDispatch } from 'react-redux'
 
 type Props = {
   product: Cardapio | null
@@ -12,7 +21,14 @@ type Props = {
 }
 
 const Modal = ({ product, isVisible, onClose }: Props) => {
+  const dispatch = useDispatch()
+
   if (!isVisible || !product) return null
+  // função que abre o carrinho de compras
+  const addToCart = () => {
+    dispatch(add(product))
+    dispatch(open())
+  }
 
   return (
     <PainelModal className="visivel">
@@ -27,7 +43,7 @@ const Modal = ({ product, isVisible, onClose }: Props) => {
             <p>
               Serve de <span>{product.porcao}</span>
             </p>
-            <BotaoModal>
+            <BotaoModal onClick={addToCart}>
               Adicionar ao carrinho - {formataPreco(product.preco)}
             </BotaoModal>
           </div>

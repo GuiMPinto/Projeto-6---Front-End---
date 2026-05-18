@@ -12,6 +12,12 @@ export const cores = {
   margin: 0 auto; // Altura vertical igual a Zero
                   // e centralize o conteúdo no centro.
 */
+
+export const breakpoints = {
+  desktop: '1024px',
+  tablet: '768px',
+  mobile: '480px'
+}
 export const GlobalCss = createGlobalStyle`
   * {
     margin: 0;
@@ -30,5 +36,9 @@ export const GlobalCss = createGlobalStyle`
     max-width: 1024px;
     width: 100%;
     margin: 0 auto;
+
+    @media (max-width: ${breakpoints.desktop}){
+      max-width: 80%;
+    }
   }
 `

@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { cores } from '../../styles'
+import { cores, breakpoints } from '../../styles'
 
 /*
   align-items: center;  // Alinha elementos na vertical
@@ -18,6 +18,15 @@ export const List = styled.ul`
   row-gap: 40px;
   margin-top: 40px;
   margin-bottom: 120px;
+
+  @media (max-width: ${breakpoints.tablet}) {
+    gap: 8px;
+  }
+
+  @media (max-width: ${breakpoints.mobile}) {
+    grid-template-columns: 1fr;
+    row-gap: 16px;
+  }
 `
 
 export const Title = styled.h2`

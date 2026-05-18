@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { cores } from '../../styles'
+import { breakpoints } from '../../styles'
 
 import { ButtonLink } from '../Button/styles'
 /*
@@ -13,6 +14,14 @@ export const Card = styled.div`
   width: 320px;
   padding: 8px;
   position: relative;
+
+  @media (max-width: ${breakpoints.tablet}) {
+    width: 304px;
+  }
+
+  @media (max-width: ${breakpoints.mobile}) {
+    width: 100%;
+  }
 
   img {
     width: 100%;

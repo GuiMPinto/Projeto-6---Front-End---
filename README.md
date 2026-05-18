@@ -521,3 +521,223 @@ Resumindo o funcionamento do Modal:
 O ProductListPerfil exibe um Modal quando o botão de ProductPerfil é
 acionado. O modal ira exibir os dados do ProductPerfil no qual o
 botão SAIBA MAIS foi clicado.
+
+
+# Projeto 6 - parte 3 -
+
+Será acrescentado ao cart de compras os pratos desejados. No cart será
+exibido os pratos adicionados atravês do botão ADICIONAR AO CARRINHO do
+componente Modal.
+
+No cart terá a opção de remover um produto da lista, e continuar comprando.
+
+Como será feita uma simulção de um servidor junto ao Redux sera usado a
+tecnologia Redux Toolkit. Assim será criado um store e as suas pastas e
+arquivos típicos de seu projeto. Para simular as requições HTTP será criada
+uma pasta service com os seus documentos que farão estas implementações.
+
+Criaremos a pasta store com o seu index que é o RootRducer da aplicação.
+Dentro de store tema a pasta reducers onde estará todos os reducers da
+implementação. No caso desta aplicação será apenas o reducer do carrinho
+de compras.
+
+Desta forma a implementação dos estados as requisições HTTPs se comunicarão pois
+trabalhão juntos.
+
+
+As requisições HTTPs da aplicação são configuradas na api e o acionamento destas
+são feitas através das actions disparada pelos componentes. Lembrando que as
+requisições são responsáveis por preencher os dados da aplicação que estão em
+uma api externa.
+
+src/api/index.ts
+-----------------------------------------------------------------------
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+
+// Componentes
+import { Restaurante } from '../models/restaurante'
+
+/
+export const api = createApi({
+  reducerPath: 'api',
+  baseQuery: fetchBaseQuery({
+    baseUrl: 'https://api-ebac.vercel.app/api/efood/restaurantes'
+  }),
+  // endpoints = requisições
+  endpoints: (builder) => ({
+    getRestaurants: builder.query<Restaurante[], void>({
+      query: () => ''
+    }),
+
+    getRestaurantById: builder.query<Restaurante, string | number>({
+      query: (id) => `/${id}`
+    })
+  })
+})
+export const { useGetRestaurantsQuery, useGetRestaurantByIdQuery } = api
+-----------------------------------------------------------------------
+
+
+
+O RootReducer:
+
+src/store/index.ts
+------------------------------------------------------------------
+import { configureStore } from '@reduxjs/toolkit'
+
+import { api } from '../api'
+
+export const store = configureStore({
+  reducer: {
+    [api.reducerPath]: api.reducer
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(api.middleware)
+})
+
+export type RootReducer = ReturnType<typeof store.getState>
+------------------------------------------------------------------
+
+
+
+No reducer do carrinho é configurada todas as actions disparadas
+que mudaram o componente Cart que pode ser diparados por todos os componentes.
+
+
+src/store/reducers/carrinhoCompras.ts
+-------------------------------------------------------------------
+// Redux ToolKit
+// createSlice: uma função que recebe um objeto
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+
+// Componentes
+import { Prato } from '../../models/restaurante'
+
+type PratoState = {
+  items: Prato[]
+  isOpen: boolean // determina se o Cart estara aberto
+}
+
+const initialState: PratoState = {
+  items: [], //array onde ficam armazenados os ojetos do tipo Prato
+  isOpen: false
+}
+
+//cartSlice : um pedaço de um estado
+const cartSlice = createSlice({
+  name: 'cart',
+  initialState,
+  // um objeto que possui as funções que vão alterar este o carrinho de compras
+  // estas funções podem ser consideradas como actions, que serão disparadas
+  // pelos dispatchs
+  reducers: {
+    // função de adicionar um item ao carrinho de compras.
+    add: (state, action: PayloadAction<Prato>) => {
+      const prato = state.items.find((items) => items.id === action.payload.id)
+
+      if (prato === undefined) {
+        state.items.push(action.payload) //Inseri os objetos do Tipo Prato em items
+      } else {
+        alert('O Jogo já está no carrinho')
+      }
+    },
+    remove: (state, action: PayloadAction<number>) => {
+      state.items = state.items.filter((item) => item.id !== action.payload)
+    },
+    open: (state) => {
+      state.isOpen = true
+    },
+    close: (state) => {
+      state.isOpen = false
+    }
+  }
+})
+
+export const { add, open, close, remove } = cartSlice.actions
+export default cartSlice.reducer
+-------------------------------------------------------------------
+
+
+O Componente Cart
+
+src/components/Cart
+-------------------------------------------------------------
+import { useDispatch, useSelector } from 'react-redux'
+import { RootReducer } from '../../store'
+// importa as actions do Reducer do carrinhoCompras
+import { close, remove } from '../../store/reducers/carrinhoCompras'
+
+import Button from '../Button'
+import { formataPreco } from '../../utils/formatacao'
+import {
+  CartContainer,
+  Overlay,
+  SideBar,
+  CartItem,
+  Price,
+  CartCloseButton
+} from './styles'
+
+const Cart = () => {
+  // state.carroCompras <--- store/index
+  const { items, isOpen } = useSelector(
+    (state: RootReducer) => state.carroCompras
+  )
+
+  const dispatch = useDispatch()
+
+  //função para fechar o Cart
+  const closeCart = () => {
+    dispatch(close())
+  }
+
+  //função para remover um item do carrinho de Compras
+  const removeItem = (id: number) => {
+    dispatch(remove(id))
+  }
+
+  const getValorTotal = () => {
+    return items.reduce((acumulador, item) => {
+      return acumulador + item.preco
+    }, 0)
+  }
+  return (
+    <CartContainer className={isOpen ? 'is-open' : ''}>
+      <Overlay onClick={closeCart} />
+      <SideBar>
+        <div className="close-button">
+          <CartCloseButton onClick={closeCart}></CartCloseButton>
+        </div>
+        <ul>
+          {items.map((item) => (
+            <CartItem key={item.id}>
+              <button
+                onClick={() => removeItem(item.id)}
+                type="button"
+              ></button>
+              <img src={item.foto} alt={item.nome} />
+              <div>
+                <h3>{item.nome}</h3>
+                <p>{formataPreco(item.preco)}</p>
+              </div>
+            </CartItem>
+          ))}
+        </ul>
+        <Price>
+          <p>Valor total</p>
+          <p>{formataPreco(getValorTotal())}</p>
+        </Price>
+        <Button type="button">Continuar com a entrega</Button>
+      </SideBar>
+    </CartContainer>
+  )
+}
+
+export default Cart
+
+-------------------------------------------------------------
+
+Agora será feita a responsividade em vários dispositivos.
+O container principal do estilo geral vai ser criado um media
+query para atender os demais dispositivos.
+

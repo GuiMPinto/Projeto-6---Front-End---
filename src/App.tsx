@@ -39,6 +39,7 @@ import { GlobalCss } from './styles'
 // Componentes
 import Footer from './components/Rodape'
 import Rotas from './routes'
+import Cart from './components/Cart'
 
 //React
 import { Provider } from 'react-redux'
@@ -46,11 +47,14 @@ import { Provider } from 'react-redux'
 function App() {
   return (
     <>
+      {/* O primeiro store é uma propriedade do Provider
+    O segundo store é a constante criado em src/store/index.tsx */}
       <Provider store={store}>
         <BrowserRouter>
           <GlobalCss />
           <Rotas />
           <Footer />
+          <Cart />
         </BrowserRouter>
       </Provider>
     </>

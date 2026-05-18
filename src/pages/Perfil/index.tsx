@@ -9,7 +9,7 @@ import Banner from '../../components/BannerPerfil'
 import HeaderPerfil from '../../components/HeaderPerfil'
 
 // Importa a requisição da api externa usada com o id no final
-import { useGetRestaurantByIdQuery } from '../../api'
+import { useGetRestaurantByIdQuery } from '../../services/api'
 
 const Perfil = () => {
   const { id } = useParams()
@@ -26,7 +26,11 @@ const Perfil = () => {
   return (
     <>
       <HeaderPerfil />
-      <Banner />
+      <Banner
+        capa={pratosRestaurante.capa}
+        categoria={pratosRestaurante.tipo}
+        nome={pratosRestaurante.titulo}
+      />
       <ProductsListPerfil menu={pratosRestaurante.cardapio} />
     </>
   )
