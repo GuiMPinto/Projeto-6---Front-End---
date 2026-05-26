@@ -741,3 +741,71 @@ Agora será feita a responsividade em vários dispositivos.
 O container principal do estilo geral vai ser criado um media
 query para atender os demais dispositivos.
 
+
+
+# Projeto 6 - parte 4 -
+
+Será feito no mesmo campo da lista de Pedido. As tabelas para preencher
+o endereço de entrega a forma  de pagamento e conclusão do pedido
+
+
+
+=============== COMO ADICIONAR MAIS UMA FORMA DE PAGAMENTO ===============
+
+
+Para adicionar uma nova forma de pagamento, como o PIX, você pode seguir
+estes passos, mantendo o padrão já utilizado nas formas de pagamento
+existentes na sua aplicação:
+
+Adicionar a opção de PIX no componente de seleção de pagamento: Inclua uma
+nova opção visual para o usuário selecionar o pagamento via PIX, junto com
+cartão/débito, por exemplo.
+
+<label>
+  <input
+    type="radio"
+    name="paymentMethod"
+    value="pix"
+    checked={paymentMethod === 'pix'}
+    onChange={handlePaymentChange}
+  />
+  PIX
+</label>
+
+Incluir um formulário ou instruções específicas para o PIX: Ao selecionar
+o PIX, apresente o campo para exibir o QR Code ou a chave PIX para pagamento.
+Caso o usuário precise enviar algum comprovante, exiba um campo para upload.
+
+{paymentMethod === 'pix' && (
+  <div>
+    <p>Chave PIX: seuemail@exemplo.com</p>
+    {/* Ou exiba um QR Code gerado dinamicamente */}
+    {/* <QRCode value="chave_pix_string" /> */}
+  </div>
+)}
+
+Adaptar o envio das informações para a API (POST): Na montagem dos dados do
+pedido para o POST, inclua a nova opção de pagamento.
+Exemplo:
+
+const pedido = {
+  // ...outros dados do pedido
+  paymentMethod: paymentMethod, // 'credit_card', 'debit_card' ou 'pix'
+  // se necessário, inclua comprovante ou dados relacionados ao PIX
+};
+
+(Opcional)
+Ajustar a interface de confirmação: Mostre para o usuário a confirmação do pedido, indicando que o pagamento foi iniciado/confirmado via PIX.
+Essas etapas são o básico para adicionar o PIX e funcionam para qualquer outra forma de pagamento. Sempre siga o padrão dos campos e validações já implementados para as demais opções.
+
+
+==========================================================================
+
+
+
+Para validar os formulário será necessario importar as bibliotecas usa-se
+o comando:
+
+npm install --save yup formik
+
+7:06 Valide o CheckOut

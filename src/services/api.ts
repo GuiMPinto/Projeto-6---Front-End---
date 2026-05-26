@@ -14,6 +14,70 @@ import { Restaurante } from '../models/restaurante'
 // e ferramentas para consumir APIs no seu projeto React de forma
 // integrada com Redux. Você importa esse objeto para configurar a store
 // e também para usar hooks automáticos gerados para cada endpoint.
+
+// Tipo que receberá a Api para o uso de POST
+type PurchasePayload = {
+  products: [
+    {
+      id: number
+      price: number
+    }
+  ]
+  delivery: {
+    receiver: string
+    adress: {
+      description: string
+      city: string
+      zipCode: string
+      number: string
+      complement: string
+    }
+  } // delivery
+  payment: {
+    card: {
+      name: string
+      number: string
+      code: string
+      expires: {
+        month: string
+        year: string
+      }
+    }
+  } //payment
+} //PurchasePayload
+/*
+{
+  "products": [
+    {
+      "id": 1,
+      "price": 0
+    }
+  ],
+  "delivery": {
+    "receiver": "string",
+    "address": {
+      "description": "string",
+      "city": "string",
+      "zipCode": "string",
+      "number": 12,
+      "complement": "string"
+    }
+  },
+  "payment": {
+    "card": {
+      "name": "string",
+      "number": "string",
+      "code": 123,
+      "expires": {
+        "month": 12,
+        "year": 1234
+      }
+    }
+  }
+}
+
+*/
+
 export const api = createApi({
   reducerPath: 'api',
   /* baseQuery: a propriedade baseQuery serve como a função responsável
@@ -51,6 +115,15 @@ export const api = createApi({
 
     getRestaurantById: builder.query<Restaurante, string | number>({
       query: (id) => `/${id}`
+    }),
+
+    // metodo POST
+    purchase: builder.mutation<any, PurchasePayload>({
+      query: (body) => ({
+        url: 'checkout',
+        method: 'POST',
+        body: body
+      })
     })
   })
 })
@@ -58,4 +131,8 @@ export const api = createApi({
   useGetRestaurantsQuery e useGetRestaurantByIdQuery: são os hooks
   gerado automaticos de dos endpoints getRestaurants e getRestaurantById.
 */
-export const { useGetRestaurantsQuery, useGetRestaurantByIdQuery } = api
+export const {
+  useGetRestaurantsQuery,
+  useGetRestaurantByIdQuery,
+  usePurchaseMutation
+} = api

@@ -1,10 +1,20 @@
+// IMPORTAÇÕES EXTERNAS
 import { useDispatch, useSelector } from 'react-redux'
+// link a lista de produtos para o Checkout
+import { useNavigate } from 'react-router-dom'
+
+// REDUX TOOLKIT
 import { RootReducer } from '../../store'
 // importa as actions do Reducer do carrinhoCompras
 import { close, remove } from '../../store/reducers/carrinhoCompras'
 
+// COMPONENTES
 import Button from '../Button'
+
+// FUNÇÕES GERAIS
 import { formataPreco } from '../../utils/formatacao'
+
+// CSS
 import {
   CartContainer,
   Overlay,
@@ -20,6 +30,12 @@ const Cart = () => {
     (state: RootReducer) => state.carroCompras
   )
 
+  // link a lista de produtos para o Checkout
+  const navigate = useNavigate()
+
+  const goToCheckOut = () => {
+    navigate('/checkout')
+  }
   const dispatch = useDispatch()
 
   //função para fechar o Cart
@@ -34,7 +50,10 @@ const Cart = () => {
 
   const getValorTotal = () => {
     return items.reduce((acumulador, item) => {
-      return acumulador + item.preco
+      if (item.preco) {
+        return (acumulador += item.preco)
+      }
+      return 0
     }, 0)
   }
   return (
@@ -63,7 +82,11 @@ const Cart = () => {
           <p>Valor total</p>
           <p>{formataPreco(getValorTotal())}</p>
         </Price>
-        <Button type="button">Continuar com a entrega</Button>
+        <div onClick={closeCart}>
+          <Button onClick={goToCheckOut} type="button">
+            Continuar com a entrega
+          </Button>
+        </div>
       </SideBar>
     </CartContainer>
   )

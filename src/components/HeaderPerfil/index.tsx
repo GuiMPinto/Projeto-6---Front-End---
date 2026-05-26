@@ -24,7 +24,10 @@ const Header = () => {
   return (
     <HeaderBar style={{ backgroundImage: `url(${fundoHeader})` }}>
       <div className="container">
-        <h1>Restaurantes</h1>
+        <Link to="/">
+          <h1>Restaurantes</h1>
+        </Link>
+
         <Link to="/">
           <img src={logo} alt="EFOOD" />
         </Link>

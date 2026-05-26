@@ -14,6 +14,12 @@ export const HeaderBar = styled.header`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    a {
+      text-decoration: none;
+    }
+    a:hover {
+      cursor: pointer;
+    }
 
     @media (max-width: ${breakpoints.mobile}) {
       flex-direction: column;

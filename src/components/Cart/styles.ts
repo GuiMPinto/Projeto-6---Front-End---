@@ -21,7 +21,7 @@ export const CartContainer = styled.div`
   height: 100%;
   display: none;
   justify-content: flex-end;
-  z-index: 1000;
+  z-index: 1;
 
   &.is-open {
     display: flex;
@@ -46,7 +46,7 @@ export const CartCloseButton = styled.button`
 
 export const SideBar = styled.aside`
   background-color: ${cores.rosa};
-  z-index: 1001;
+  z-index: 1;
   padding: 16px 8px 0 8px;
   max-width: 360px;
   width: 100%;

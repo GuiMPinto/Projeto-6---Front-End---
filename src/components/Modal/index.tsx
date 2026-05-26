@@ -11,7 +11,7 @@ import { formataPreco } from '../../utils/formatacao'
 import { ModalContainer, PainelModal, BotaoModal, ModalContent } from './styles'
 
 // Redux - actions -
-import { open, add } from '../../store/reducers/carrinhoCompras'
+import { add, open } from '../../store/reducers/carrinhoCompras'
 import { useDispatch } from 'react-redux'
 
 type Props = {
@@ -43,9 +43,11 @@ const Modal = ({ product, isVisible, onClose }: Props) => {
             <p>
               Serve de <span>{product.porcao}</span>
             </p>
-            <BotaoModal onClick={addToCart}>
-              Adicionar ao carrinho - {formataPreco(product.preco)}
-            </BotaoModal>
+            <div onClick={onClose}>
+              <BotaoModal onClick={addToCart}>
+                Adicionar ao carrinho - {formataPreco(product.preco)}
+              </BotaoModal>
+            </div>
           </div>
         </ModalContent>
       </ModalContainer>
