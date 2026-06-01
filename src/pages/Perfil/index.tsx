@@ -10,6 +10,7 @@ import HeaderPerfil from '../../components/HeaderPerfil'
 
 // Importa a requisição da api externa usada com o id no final
 import { useGetRestaurantByIdQuery } from '../../services/api'
+import Loader from '../../components/Loader'
 
 const Perfil = () => {
   const { id } = useParams()
@@ -18,11 +19,9 @@ const Perfil = () => {
   // src/api/index.tsx.
   // Carrega os dados apenas com o paramentro id selecionado.
   const { data: pratosRestaurante } = useGetRestaurantByIdQuery(id || '')
-
   if (!pratosRestaurante) {
-    return <h3>Carregando ... </h3>
+    return <Loader />
   }
-
   return (
     <>
       <HeaderPerfil />

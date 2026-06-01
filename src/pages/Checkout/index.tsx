@@ -1,19 +1,19 @@
+// IMPORTAÇÕES EXTERNAS
 // link o Checkout para a lista de produtos
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-// componentes
-import Card from '../../components/Card'
-
-//reducer carrinho de compras
-import { open, close } from '../../store/reducers/carrinhoCompras'
-
 // integrar o formulário ao React
 import { ErrorMessage, Field, useFormik } from 'formik'
 // biblioteca para fazer a validação do campos
 import * as Yup from 'yup'
-
 //importar da API
 import { usePurchaseMutation } from '../../services/api'
+
+// COMPONENTES
+import Card from '../../components/Card'
+
+// FUNÇÕES DO REDUCER DO CARRINHOS DE COMPRAS
+import { open } from '../../store/reducers/carrinhoCompras'
 
 //CSS
 import {
@@ -27,18 +27,32 @@ import {
 } from './styles'
 
 const Checkout = () => {
-  // hooks da api
-  // [requisição, {estados da requisição}]
+  // ---- POST ---- //
+  // [requisição, {estados da requisição}]  --- hooks da api
   const [purchase, { isLoading, isError, data }] = usePurchaseMutation()
+  // -------------- //
 
+  // ------- NAVIGATE ------- //
   // link o Checkout para a lista de produtos
   const navigate = useNavigate()
 
+  const goToCard = () => {
+    navigate('/Cartao')
+  }
+
+  const goToPerfil = () => {
+    navigate('/')
+  }
+  // ------------------------ //
+
+  // ----- ACTIONS ----- //
   const dispatch = useDispatch()
   const openCart = () => {
     dispatch(open())
   }
+  // ------------------- //
 
+  // ---- TIPO DE DADOS QUE RECEBEM ---- //
   // itens usados com o Formik
   const form = useFormik({
     initialValues: {
@@ -105,7 +119,9 @@ const Checkout = () => {
       })
     }
   })
+  // ----------------------------------- //
 
+  // --------- MENSAGENS DE ERROR --------- //
   const getErrorMessage = (fieldName: string, message?: string) => {
     const estaAlterado = fieldName in form.touched
     const estaInvalido = fieldName in form.errors
@@ -113,6 +129,7 @@ const Checkout = () => {
     if (estaAlterado && estaInvalido) return message
     return ''
   }
+  // -------------------------------------- //
 
   return (
     <Card>
@@ -169,7 +186,7 @@ const Checkout = () => {
                 <small>{getErrorMessage('zipCode', form.errors.zipCode)}</small>
               </InputGroup>
               <InputGroup>
-                <label htmlFor="numberContact">Cidade</label>
+                <label htmlFor="numberContact">Número de contato</label>
                 <input
                   id="telefone"
                   name="numberContact"
@@ -191,14 +208,20 @@ const Checkout = () => {
                 type="text"
                 onChange={form.handleChange}
               />
+              <small>{getErrorMessage('moreInfo', form.errors.moreInfo)}</small>
             </InputGroup>
             <Botoes>
-              <button type="button" onClick={form.submitForm}>
-                Continuar com o pagamento
-              </button>
-              <button type="button" onClick={openCart}>
-                Voltar ao Carrinho
-              </button>
+              <div onClick={goToCard}>
+                <button type="submit" onClick={form.submitForm}>
+                  Continuar com o pagamento
+                </button>
+              </div>
+
+              <div onClick={goToPerfil}>
+                <button type="button" onClick={openCart}>
+                  Voltar ao Carrinho
+                </button>
+              </div>
             </Botoes>
           </form>
         </CardPreenchimento>

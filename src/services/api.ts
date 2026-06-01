@@ -16,13 +16,13 @@ import { Restaurante } from '../models/restaurante'
 // e também para usar hooks automáticos gerados para cada endpoint.
 
 // Tipo que receberá a Api para o uso de POST
+type Product = {
+  id: number
+  price: number
+}
+
 type PurchasePayload = {
-  products: [
-    {
-      id: number
-      price: number
-    }
-  ]
+  products: Product[]
   delivery: {
     receiver: string
     adress: {

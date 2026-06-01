@@ -1,13 +1,16 @@
-// componentes
-import Card from '../../components/Card'
-
+// IMPORTAÇÕES EXTERNAS
+// link o Checkout para a lista de produtos
+import { useNavigate } from 'react-router-dom'
 // integrar o formulário ao React
 import { useFormik, ErrorMessage } from 'formik'
 // biblioteca para fazer a validação do campos
 import * as Yup from 'yup'
 
-//importar da API
-import { usePurchaseMutation } from '../../services/api'
+// COMPONENTES
+import Card from '../../components/Card'
+
+//API
+import { usePurchaseMutation } from '../../services/api' // POST
 
 //CSS
 import {
@@ -21,9 +24,21 @@ import {
 } from './styles'
 
 const Cartao = () => {
+  // link o Checkout para a lista de produtos
+  const navigate = useNavigate()
+
+  const goToCheckOut = () => {
+    navigate('/Checkout')
+  }
+
+  const goToCofirm = () => {
+    navigate('/Confirmacao')
+  }
+
   // hooks da api
   // [requisição, {estados da requisição}]
   const [purchase, { isLoading, isError, data }] = usePurchaseMutation()
+
   const form = useFormik({
     initialValues: {
       nameCard: '',
@@ -165,10 +180,14 @@ const Cartao = () => {
               </InputGroup>
             </Row>
             <Botoes>
-              <button type="button" onClick={form.submitForm}>
-                Finalizar pagamento
-              </button>
-              <button type="button">Voltar para edição do endereço</button>
+              <div onClick={goToCofirm}>
+                <button type="submit" onClick={form.submitForm}>
+                  Finalizar pagamento
+                </button>
+              </div>
+              <div onClick={goToCheckOut}>
+                <button type="button">Voltar para edição do endereço</button>
+              </div>
             </Botoes>
           </form>
         </CardPreenchimento>

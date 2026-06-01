@@ -11,8 +11,8 @@ import { close, remove } from '../../store/reducers/carrinhoCompras'
 // COMPONENTES
 import Button from '../Button'
 
-// FUNÇÕES GERAIS
-import { formataPreco } from '../../utils/formatacao'
+// FUNÇÕES AUXILIARES
+import { getValorTotal, formataPreco } from '../../utils/funcoesAux'
 
 // CSS
 import {
@@ -48,14 +48,6 @@ const Cart = () => {
     dispatch(remove(id))
   }
 
-  const getValorTotal = () => {
-    return items.reduce((acumulador, item) => {
-      if (item.preco) {
-        return (acumulador += item.preco)
-      }
-      return 0
-    }, 0)
-  }
   return (
     <CartContainer className={isOpen ? 'is-open' : ''}>
       <Overlay onClick={closeCart} />
@@ -80,7 +72,7 @@ const Cart = () => {
         </ul>
         <Price>
           <p>Valor total</p>
-          <p>{formataPreco(getValorTotal())}</p>
+          <p>{formataPreco(getValorTotal(items))}</p>
         </Price>
         <div onClick={closeCart}>
           <Button onClick={goToCheckOut} type="button">

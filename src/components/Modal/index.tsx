@@ -5,7 +5,7 @@ import closeIcon from '../../assets/images/close.png'
 import { Cardapio } from '../ProductListPerfil'
 
 // Utils
-import { formataPreco } from '../../utils/formatacao'
+import { formataPreco } from '../../utils/funcoesAux'
 
 //CSS
 import { ModalContainer, PainelModal, BotaoModal, ModalContent } from './styles'

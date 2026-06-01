@@ -808,4 +808,15 @@ o comando:
 
 npm install --save yup formik
 
-7:06 Valide o CheckOut
+O yup será usado para a validação do formulário.
+O formik será usado para o uso da lógica do formulário.
+
+GET - Quando o navegador é acessado.
+POST- Inserir novos dados
+
+MUTATIONS - No Redux Toolkit Query é todo o envio de dados feito para
+            o servidor da API. Mutations são mudanças no banco de
+            dados do servidor.
+
+
+Crie a tela de confirmação do pedido Usar o ORDER ID

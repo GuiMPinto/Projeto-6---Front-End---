@@ -2,6 +2,9 @@
 import { open } from '../../store/reducers/carrinhoCompras'
 import { useDispatch } from 'react-redux'
 
+//COMPONENTES
+import Loader from '../Loader'
+
 // Cada Produto se equivale a um Card
 import {
   Card,
@@ -12,13 +15,23 @@ import {
 } from './styles'
 
 type Props = {
-  nomePrato: string
+  nomePrato?: string
   description: string
-  image: string
-  onOpen: () => void
+  image?: string
+  onOpen?: () => void
+  carregando?: boolean
 }
 
-const ProductPerfil = ({ description, image, nomePrato, onOpen }: Props) => {
+const ProductPerfil = ({
+  description,
+  image,
+  nomePrato,
+  onOpen,
+  carregando
+}: Props) => {
+  if (carregando) {
+    return <Loader></Loader>
+  }
   return (
     <Card>
       <img src={image} alt={nomePrato} />
