@@ -2,9 +2,11 @@
 // link o Checkout para a lista de produtos
 import { useNavigate } from 'react-router-dom'
 // integrar o formulário ao React
-import { useFormik, ErrorMessage } from 'formik'
+import { useFormik } from 'formik'
 // biblioteca para fazer a validação do campos
 import * as Yup from 'yup'
+// Mascaras
+import ReactInputMask from 'react-input-mask'
 
 // COMPONENTES
 import Card from '../../components/Card'
@@ -37,7 +39,7 @@ const Cartao = () => {
 
   // hooks da api
   // [requisição, {estados da requisição}]
-  const [purchase, { isLoading, isError, data }] = usePurchaseMutation()
+  const [purchase, { isLoading }] = usePurchaseMutation()
 
   const form = useFormik({
     initialValues: {
@@ -80,8 +82,8 @@ const Cartao = () => {
           adress: {
             description: '',
             city: '',
-            zipCode: '',
-            number: '',
+            zipCode: Number(''),
+            number: Number(''),
             complement: ''
           }
         }, // delivery
@@ -92,8 +94,8 @@ const Cartao = () => {
             number: values.numCard,
             code: values.cvv,
             expires: {
-              month: values.monthCard,
-              year: values.yearCard
+              month: Number(values.monthCard),
+              year: Number(values.yearCard)
             }
           }
         }
@@ -130,23 +132,25 @@ const Cartao = () => {
             <Row>
               <InputGroup maxWidth="224px">
                 <label htmlFor="numCard">Número do Cartão</label>
-                <input
+                <ReactInputMask
                   id="numCartao"
                   type="text"
                   name="numCard"
                   value={form.values.numCard}
                   onChange={form.handleChange}
+                  mask="9999 9999 9999 9999"
                 />
                 <small>{getErrorMessage('numCard', form.errors.numCard)}</small>
               </InputGroup>
               <InputGroup maxWidth="88px">
                 <label htmlFor="cvv">CVV</label>
-                <input
+                <ReactInputMask
                   id="idCVV"
                   type="text"
                   name="cvv"
                   value={form.values.cvv}
                   onChange={form.handleChange}
+                  mask="999"
                 />
                 <small>{getErrorMessage('cvv', form.errors.cvv)}</small>
               </InputGroup>
@@ -154,12 +158,13 @@ const Cartao = () => {
             <Row>
               <InputGroup>
                 <label htmlFor="monthCard">Mês do Vencimento</label>
-                <input
+                <ReactInputMask
                   id="mesVencimento"
                   type="text"
                   name="monthCard"
                   value={form.values.monthCard}
                   onChange={form.handleChange}
+                  mask="99"
                 />
                 <small>
                   {getErrorMessage('monthCard', form.errors.monthCard)}
@@ -167,12 +172,13 @@ const Cartao = () => {
               </InputGroup>
               <InputGroup>
                 <label htmlFor="yearCard">Ano do Vencimento</label>
-                <input
+                <ReactInputMask
                   id="anoVencimento"
                   type="text"
                   name="yearCard"
                   value={form.values.yearCard}
                   onChange={form.handleChange}
+                  mask="9999"
                 />
                 <small>
                   {getErrorMessage('yearCard', form.errors.yearCard)}
@@ -181,8 +187,14 @@ const Cartao = () => {
             </Row>
             <Botoes>
               <div onClick={goToCofirm}>
-                <button type="submit" onClick={form.submitForm}>
-                  Finalizar pagamento
+                <button
+                  type="submit"
+                  onClick={form.submitForm}
+                  disabled={isLoading}
+                >
+                  {isLoading
+                    ? 'Finalizando o pagamento'
+                    : 'Finalizar pagamento'}
                 </button>
               </div>
               <div onClick={goToCheckOut}>

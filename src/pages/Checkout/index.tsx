@@ -2,12 +2,18 @@
 // link o Checkout para a lista de produtos
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
+
 // integrar o formulário ao React
-import { ErrorMessage, Field, useFormik } from 'formik'
+import { useFormik } from 'formik'
+
 // biblioteca para fazer a validação do campos
 import * as Yup from 'yup'
+
 //importar da API
 import { usePurchaseMutation } from '../../services/api'
+
+// mascaras
+import ReactInputMask from 'react-input-mask'
 
 // COMPONENTES
 import Card from '../../components/Card'
@@ -29,7 +35,7 @@ import {
 const Checkout = () => {
   // ---- POST ---- //
   // [requisição, {estados da requisição}]  --- hooks da api
-  const [purchase, { isLoading, isError, data }] = usePurchaseMutation()
+  const [purchase, { isLoading, data }] = usePurchaseMutation()
   // -------------- //
 
   // ------- NAVIGATE ------- //
@@ -73,11 +79,11 @@ const Checkout = () => {
       city: Yup.string()
         .min(4, 'Precisa ter mais de 4 carateres')
         .required('O campo é obrigatporio'),
-      zipCode: Yup.string()
+      zipCode: Yup.number()
         .min(7, 'Número inadequado de caracteres')
         .max(7, 'Número inadequado de caracteres')
         .required('O campo é obrigatporio'),
-      numberContact: Yup.string()
+      numberContact: Yup.number()
         .min(9, 'Número inadequado de caracteres')
         .max(9, 'Número inadequado de caracteres')
         .required('O campo é obrigatporio'),
@@ -99,8 +105,8 @@ const Checkout = () => {
           adress: {
             description: values.description,
             city: values.city,
-            zipCode: values.zipCode,
-            number: values.numberContact,
+            zipCode: Number(values.zipCode),
+            number: Number(values.numberContact),
             complement: values.moreInfo
           }
         }, // delivery
@@ -111,8 +117,8 @@ const Checkout = () => {
             number: '',
             code: '',
             expires: {
-              month: '',
-              year: ''
+              month: Number(''),
+              year: Number('')
             }
           }
         }
@@ -137,7 +143,7 @@ const Checkout = () => {
         <Overlay>Overlay</Overlay>
         <CardPreenchimento>
           <form onSubmit={form.handleSubmit}>
-            <Titulo>Entrega</Titulo>
+            <Titulo>Entrega : {data?.orderId}</Titulo>
             <InputGroup>
               <label htmlFor="fullName">Nome do cliente</label>
               <input
@@ -176,23 +182,25 @@ const Checkout = () => {
             <Row>
               <InputGroup>
                 <label htmlFor="zipCode">CEP</label>
-                <input
+                <ReactInputMask
                   id="cep"
                   name="zipCode"
                   value={form.values.zipCode}
                   type="text"
                   onChange={form.handleChange}
+                  mask="99999-999"
                 />
                 <small>{getErrorMessage('zipCode', form.errors.zipCode)}</small>
               </InputGroup>
               <InputGroup>
                 <label htmlFor="numberContact">Número de contato</label>
-                <input
+                <ReactInputMask
                   id="telefone"
                   name="numberContact"
                   value={form.values.numberContact}
                   type="text"
                   onChange={form.handleChange}
+                  mask="(99)99999-9999"
                 />
                 <small>
                   {getErrorMessage('numberContact', form.errors.numberContact)}
@@ -212,8 +220,14 @@ const Checkout = () => {
             </InputGroup>
             <Botoes>
               <div onClick={goToCard}>
-                <button type="submit" onClick={form.submitForm}>
-                  Continuar com o pagamento
+                <button
+                  type="submit"
+                  onClick={form.submitForm}
+                  disabled={isLoading}
+                >
+                  {isLoading
+                    ? 'Analisando os dados bancario'
+                    : 'Continuar com o pagamento'}
                 </button>
               </div>
 

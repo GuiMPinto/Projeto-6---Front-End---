@@ -820,3 +820,10 @@ MUTATIONS - No Redux Toolkit Query é todo o envio de dados feito para
 
 
 Crie a tela de confirmação do pedido Usar o ORDER ID
+
+npm i --save react-input-mask
+npm i --save-dev @types/react-input-mask
+Comandos para criarem mascaras. Usado no preenchimento de CPF, EMAIL etc...
+
+
+28:29

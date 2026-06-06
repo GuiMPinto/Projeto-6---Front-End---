@@ -52,11 +52,11 @@ export const SideBar = styled.aside`
   width: 100%;
 
   @media (max-width: ${breakpoints.tablet}) {
-    max-width: 60%;
+    max-width: 90%;
   }
 
   @media (max-width: ${breakpoints.tablet}) {
-    max-width: 70%;
+    max-width: 80%;
   }
 
   img {
@@ -70,6 +70,13 @@ export const SideBar = styled.aside`
     display: block;
     width: 100%;
     margin: 16px 0px;
+  }
+
+  .empty-text {
+    font-size: 14px;
+    line-height: 22px;
+    color: ${cores.branca};
+    text-algin: center;
   }
 `
 export const CartItem = styled.div`

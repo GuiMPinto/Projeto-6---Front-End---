@@ -8,7 +8,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 // Componentes
-import { Restaurante } from '../models/restaurante'
 
 // Api é o objeto exportado que reúne todos os endpoints, configurações
 // e ferramentas para consumir APIs no seu projeto React de forma
@@ -17,7 +16,7 @@ import { Restaurante } from '../models/restaurante'
 
 // Tipo que receberá a Api para o uso de POST
 type Product = {
-  id: number
+  id?: number
   price: number
 }
 
@@ -28,8 +27,8 @@ type PurchasePayload = {
     adress: {
       description: string
       city: string
-      zipCode: string
-      number: string
+      zipCode: number
+      number: number
       complement: string
     }
   } // delivery
@@ -39,8 +38,8 @@ type PurchasePayload = {
       number: string
       code: string
       expires: {
-        month: string
-        year: string
+        month: number
+        year: number
       }
     }
   } //payment
@@ -77,6 +76,11 @@ type PurchasePayload = {
 }
 
 */
+
+// usado no mutations
+type PurchaseResponse = {
+  orderId: string
+}
 
 export const api = createApi({
   reducerPath: 'api',
@@ -118,7 +122,7 @@ export const api = createApi({
     }),
 
     // metodo POST
-    purchase: builder.mutation<any, PurchasePayload>({
+    purchase: builder.mutation<PurchaseResponse, PurchasePayload>({
       query: (body) => ({
         url: 'checkout',
         method: 'POST',

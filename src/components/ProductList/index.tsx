@@ -1,6 +1,5 @@
 // Componentes
 import Product from '../Product'
-import { Restaurante } from '../../models/restaurante' // Type de dados criado me Home
 
 // CSS
 import { Container, List } from './styles'

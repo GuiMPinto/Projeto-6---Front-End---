@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { cores, breakpoints } from '../../styles'
+import { cores } from '../../styles'
 
 export const CardContainer = styled.div`
   position: fixed;

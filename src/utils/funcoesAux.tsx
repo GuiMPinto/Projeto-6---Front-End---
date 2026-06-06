@@ -1,5 +1,3 @@
-import { Prato } from '../models/restaurante'
-
 export const getValorTotal = (items: Prato[]) => {
   return items.reduce((acumulador, item) => {
     if (item.preco) {

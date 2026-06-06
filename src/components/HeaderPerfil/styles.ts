@@ -31,7 +31,12 @@ export const HeaderBar = styled.header`
         display: block;
       }
     }
+
     h1 {
+      line-height: 0;
+    }
+
+    h2 {
       font-size: 18px;
       color: ${cores.rosa};
       display: inline;

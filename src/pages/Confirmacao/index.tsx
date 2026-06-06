@@ -1,5 +1,11 @@
-// componentes
+// COMPONENTES
 import Card from '../../components/Card'
+
+//REDUCER
+import { clear } from '../../store/reducers/carrinhoCompras'
+
+//REACT
+import { useDispatch } from 'react-redux'
 
 //CSS
 import {
@@ -9,8 +15,19 @@ import {
   Titulo,
   Botoes
 } from './styles'
+import { useEffect } from 'react'
 
 const Confirmacao = () => {
+  // const dispatch = useDispatch()
+  // useEffect(() => {
+  //   if (isSucess) {
+  //     dispatch(clear())
+  //   }
+  // }, [isSucess, dispatch])
+
+  // if (items.length === 0 && !isSucess){
+  //   return <Navigate to"/" />
+  // }
   return (
     <Card>
       <CardContainer>

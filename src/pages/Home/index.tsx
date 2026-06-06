@@ -1,7 +1,6 @@
 // Componentes
 import ProductsList from '../../components/ProductList'
 import Header from '../../components/Header'
-import Loader from '../../components/Loader'
 
 // requisição da API para preencher as lista de restaurantes
 import { useGetRestaurantsQuery } from '../../services/api'

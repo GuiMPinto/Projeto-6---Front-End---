@@ -7,6 +7,7 @@ import { useState } from 'react' // usando na Modal
 
 // Styled Components
 import { Container, List } from './styles'
+import Loader from '../Loader'
 
 //Recebe o cardapio de Restaurante
 export interface Cardapio {
@@ -19,33 +20,38 @@ export interface Cardapio {
 }
 
 type Props = {
-  menu: Cardapio[]
+  menu?: Cardapio[]
+  carregando: boolean
 }
-const ProductsListPerfil = ({ menu }: Props) => {
+const ProductsListPerfil = ({ menu, carregando }: Props) => {
   //Estados React que habilita o Modal
   const [modal, setModal] = useState({
     isVisible: false,
     data: null as Cardapio | null
   })
 
+  if (carregando) {
+    return <Loader />
+  }
   return (
     <Container>
       <div className="container">
         <List>
-          {menu.map((pratosPerfil) => (
-            // Prodcut <= game.ts
-            <ProductPerfil
-              key={pratosPerfil.id}
-              image={pratosPerfil.foto}
-              nomePrato={pratosPerfil.nome}
-              description={
-                pratosPerfil.descricao.length
-                  ? pratosPerfil.descricao.slice(0, 150) + '...'
-                  : pratosPerfil.descricao
-              }
-              onOpen={() => setModal({ isVisible: true, data: pratosPerfil })}
-            />
-          ))}
+          {menu &&
+            menu.map((pratosPerfil) => (
+              // Prodcut <= game.ts
+              <ProductPerfil
+                key={pratosPerfil.id}
+                image={pratosPerfil.foto}
+                nomePrato={pratosPerfil.nome}
+                description={
+                  pratosPerfil.descricao.length
+                    ? pratosPerfil.descricao.slice(0, 150) + '...'
+                    : pratosPerfil.descricao
+                }
+                onOpen={() => setModal({ isVisible: true, data: pratosPerfil })}
+              />
+            ))}
         </List>
         <Modal
           product={modal.data}

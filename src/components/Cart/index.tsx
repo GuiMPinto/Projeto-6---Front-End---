@@ -52,33 +52,39 @@ const Cart = () => {
     <CartContainer className={isOpen ? 'is-open' : ''}>
       <Overlay onClick={closeCart} />
       <SideBar>
-        <div className="close-button">
-          <CartCloseButton onClick={closeCart}></CartCloseButton>
-        </div>
-        <ul>
-          {items.map((item) => (
-            <CartItem key={item.id}>
-              <button
-                onClick={() => removeItem(item.id)}
-                type="button"
-              ></button>
-              <img src={item.foto} alt={item.nome} />
-              <div>
-                <h3>{item.nome}</h3>
-                <p>{formataPreco(item.preco)}</p>
-              </div>
-            </CartItem>
-          ))}
-        </ul>
-        <Price>
-          <p>Valor total</p>
-          <p>{formataPreco(getValorTotal(items))}</p>
-        </Price>
-        <div onClick={closeCart}>
-          <Button onClick={goToCheckOut} type="button">
-            Continuar com a entrega
-          </Button>
-        </div>
+        {items.length > 0 ? (
+          <>
+            <div className="close-button">
+              <CartCloseButton onClick={closeCart}></CartCloseButton>
+            </div>
+            <ul>
+              {items.map((item) => (
+                <CartItem key={item.id}>
+                  <button
+                    onClick={() => removeItem(item.id)}
+                    type="button"
+                  ></button>
+                  <img src={item.foto} alt={item.nome} />
+                  <div>
+                    <h3>{item.nome}</h3>
+                    <p>{formataPreco(item.preco)}</p>
+                  </div>
+                </CartItem>
+              ))}
+            </ul>
+            <Price>
+              <p>Valor total</p>
+              <p>{formataPreco(getValorTotal(items))}</p>
+            </Price>
+            <div onClick={closeCart}>
+              <Button onClick={goToCheckOut} type="button">
+                Continuar com a entrega
+              </Button>
+            </div>
+          </>
+        ) : (
+          <p className="empty-text">O carrinho está vazio...</p>
+        )}
       </SideBar>
     </CartContainer>
   )

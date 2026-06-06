@@ -1,8 +1,5 @@
 import styled from 'styled-components'
-import { cores, breakpoints } from '../../styles'
-import { ButtonContainer, ButtonLink } from '../../components/Button/styles'
-import remover from '../../assets/images/lixeira.png'
-import closeIcon from '../../assets/images/close.png'
+import { cores } from '../../styles'
 
 export const CardContainer = styled.div`
   position: fixed;

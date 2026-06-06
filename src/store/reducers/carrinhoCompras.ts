@@ -2,9 +2,6 @@
 // createSlice: uma função que recebe um objeto
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-// Componentes
-import { Prato } from '../../models/restaurante'
-
 type PratoState = {
   items: Prato[]
   isOpen: boolean // determina se o Cart estara aberto
@@ -41,9 +38,12 @@ const cartSlice = createSlice({
     },
     close: (state) => {
       state.isOpen = false
+    },
+    clear: (state) => {
+      state.items = []
     }
   }
 })
 
-export const { add, open, close, remove } = cartSlice.actions
+export const { add, open, close, remove, clear } = cartSlice.actions
 export default cartSlice.reducer

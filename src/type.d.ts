@@ -1,4 +1,4 @@
-export type Restaurante = {
+declare type Restaurante = {
   id: number
   titulo: string
   destacado: boolean
@@ -9,7 +9,7 @@ export type Restaurante = {
   cardapio: Prato[]
 }
 
-export interface Prato {
+declare interface Prato {
   id: number
   nome: string
   descricao: string

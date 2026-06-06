@@ -1,7 +1,3 @@
-// Redux - actions -
-import { open } from '../../store/reducers/carrinhoCompras'
-import { useDispatch } from 'react-redux'
-
 //COMPONENTES
 import Loader from '../Loader'
 
