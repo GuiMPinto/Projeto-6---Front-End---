@@ -1,3 +1,7 @@
+// IMPORTAÇÕES EXTERNAS
+// link o Checkout para a lista de produtos
+import { useNavigate } from 'react-router-dom'
+
 // COMPONENTES
 import Card from '../../components/Card'
 
@@ -28,6 +32,11 @@ const Confirmacao = () => {
   // if (items.length === 0 && !isSucess){
   //   return <Navigate to"/" />
   // }
+  const navigate = useNavigate()
+  const goToHome = () => {
+    navigate('/')
+  }
+
   return (
     <Card>
       <CardContainer>
@@ -55,7 +64,9 @@ const Confirmacao = () => {
           </p>
 
           <Botoes>
-            <button type="button">Concluir</button>
+            <button type="button" onClick={goToHome}>
+              Concluir
+            </button>
           </Botoes>
         </CardPreenchimento>
       </CardContainer>

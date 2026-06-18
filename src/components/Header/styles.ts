@@ -16,6 +16,10 @@ export const HeaderBar = styled.header`
       background-size: cover;
     }
 
+    h1 {
+      line-height: 0;
+    }
+
     h2 {
       padding-top: 160px;
       padding-bottom: 40px;

@@ -16,12 +16,12 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 // Tipo que receberá a Api para o uso de POST
 type Product = {
-  id?: number
+  id: number
   price: number
 }
 
 type PurchasePayload = {
-  products: Product[]
+  products: Product[][]
   delivery: {
     receiver: string
     adress: {

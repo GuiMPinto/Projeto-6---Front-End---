@@ -4,10 +4,12 @@ import { api } from '../services/api'
 
 //reducers
 import cartReducer from '../store/reducers/carrinhoCompras'
+import checkoutReducer from '../store/reducers/fomularioDados'
 
 export const store = configureStore({
   reducer: {
     carroCompras: cartReducer,
+    checkout: checkoutReducer,
     /*
       reducerPath é uma propriedade de api
       O api.reducer é uma propriedade do objeto api criado pelo createApi do RTK Query.

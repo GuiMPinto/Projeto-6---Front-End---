@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom'
 import { RootReducer } from '../../store'
 // importa as actions do Reducer do carrinhoCompras
 import { close, remove } from '../../store/reducers/carrinhoCompras'
+// importa as actions do Reducer do carrinhoCompras
+import { openForm } from '../../store/reducers/fomularioDados'
 
 // COMPONENTES
 import Button from '../Button'
@@ -33,9 +35,6 @@ const Cart = () => {
   // link a lista de produtos para o Checkout
   const navigate = useNavigate()
 
-  const goToCheckOut = () => {
-    navigate('/checkout')
-  }
   const dispatch = useDispatch()
 
   //função para fechar o Cart
@@ -43,6 +42,11 @@ const Cart = () => {
     dispatch(close())
   }
 
+  const openCheckout = () => {
+    dispatch(openForm())
+    dispatch(close())
+    navigate('/checkout')
+  }
   //função para remover um item do carrinho de Compras
   const removeItem = (id: number) => {
     dispatch(remove(id))
@@ -76,11 +80,10 @@ const Cart = () => {
               <p>Valor total</p>
               <p>{formataPreco(getValorTotal(items))}</p>
             </Price>
-            <div onClick={closeCart}>
-              <Button onClick={goToCheckOut} type="button">
-                Continuar com a entrega
-              </Button>
-            </div>
+
+            <Button onClick={openCheckout} type="button">
+              Continuar com a entrega
+            </Button>
           </>
         ) : (
           <p className="empty-text">O carrinho está vazio...</p>

@@ -8,6 +8,8 @@ import * as Yup from 'yup'
 // Mascaras
 import ReactInputMask from 'react-input-mask'
 
+import { RootReducer } from '../../store'
+import { useSelector } from 'react-redux'
 // COMPONENTES
 import Card from '../../components/Card'
 
@@ -41,6 +43,7 @@ const Cartao = () => {
   // [requisição, {estados da requisição}]
   const [purchase, { isLoading }] = usePurchaseMutation()
 
+  const { items } = useSelector((state: RootReducer) => state.carroCompras)
   const form = useFormik({
     initialValues: {
       nameCard: '',
@@ -71,12 +74,12 @@ const Cartao = () => {
     }),
     onSubmit: (values) => {
       purchase({
-        products: [
+        products: items.map((item) => [
           {
-            id: 1,
-            price: 123
+            id: item.id,
+            price: item.preco
           }
-        ],
+        ]),
         delivery: {
           receiver: '',
           adress: {

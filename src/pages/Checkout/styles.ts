@@ -1,6 +1,10 @@
 import styled from 'styled-components'
 import { cores } from '../../styles'
 
+type InputGroupProps = {
+  maxWidth?: string
+}
+
 export const CardContainer = styled.div`
   position: fixed;
   width: 100%;
@@ -46,9 +50,10 @@ export const Titulo = styled.h4`
   margin-bottom: 8px;
 `
 
-export const InputGroup = styled.div`
+export const InputGroup = styled.div<InputGroupProps>`
   flex: auto;
   font-size: 14px;
+  max-width: ${(props) => props.maxWidth || 'auto'};
 
   color: ${cores.branca};
   margin: 8px 8px 0px 8px;
